@@ -1,0 +1,42 @@
+### Installed with 'mybashrc'
+# Prompt string
+color_return_command()
+{
+  if [ $? == "0" ]; then
+    echo -e "\e[0;32m"
+  else
+    echo -e "\e[0;31m"
+  fi 
+}
+python_venv()
+{
+  if [ -n "$VIRTUAL_ENV" ]; then
+    basename $VIRTUAL_ENV | sed 's/^/(/; s/$/)/'
+  fi
+}
+git_commit_info()
+{
+  if which git &> /dev/null; then
+    if [ -d ".git" ]; then
+        if git status --porcelain | awk '$1 ~ /A/ || $0 ~ /^\?\?/ { found=1 } END { exit !found }'; then
+        echo -e -n "\e[0;32m+\033[0m"
+        fi
+        if git status --porcelain | awk '$1 ~ /M/ { found=1 } END { exit !found }'; then
+        echo -e -n "*"
+        fi
+        if git status --porcelain | awk '$1 ~ /D/ { found=1 } END { exit !found }'; then
+        echo -e -n "\e[0;31m-\033[0m"
+        fi
+    fi
+  fi
+}
+export PS1='\n$(color_return_command)(\t)\e[m$(python_venv) \e[0;34m\u@\h\e[m[\e[0;33m\w\e[m]$(__git_ps1)$(git_commit_info):\n$ '
+
+# Aliases
+alias ll='ls -l --color=auto'
+alias lla='ls -al --color=auto'
+alias gst='git status'
+alias gpl='git pull'
+alias python-http-server='python3 -m http.server'
+
+# Env variables
