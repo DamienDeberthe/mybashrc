@@ -6,7 +6,7 @@ if ! grep -q "Installed with 'mybashrc'" ~/.bashrc; then
   cat mybashrc >> ~/.bashrc
   rm mybashrc
   echo "'mybashrc' has been installed."
-  source ~/.bashrc
+  echo "To activate, reload terminal or run command 'source ~/.bashrc'."
 else
   echo "'mybashrc' already installed for current user."
 fi
