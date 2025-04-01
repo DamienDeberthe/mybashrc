@@ -17,19 +17,17 @@ python_venv()
 git_info()
 {
   if which git &> /dev/null; then
-    if [ -d ".git" ]; then
+    if git branch --show-current > /dev/null 2>&1; then
       echo -n "("
-      if git branch --show-current > /dev/null 2>&1; then
-        echo -n "$(git branch --show-current)"
-      fi
+      echo -n "$(git branch --show-current)"
       if git status --porcelain | awk '$1 ~ /A/ || $0 ~ /^\?\?/ { found=1 } END { exit !found }'; then
-      echo -e -n "\e[0;32m+\033[0m"
+        echo -e -n "\e[0;32m+\033[0m"
       fi
       if git status --porcelain | awk '$1 ~ /M/ { found=1 } END { exit !found }'; then
-      echo -e -n "*"
+        echo -e -n "*"
       fi
       if git status --porcelain | awk '$1 ~ /D/ { found=1 } END { exit !found }'; then
-      echo -e -n "\e[0;31m-\033[0m"
+        echo -e -n "\e[0;31m-\033[0m"
       fi
       echo -n ")"
     fi
