@@ -11,7 +11,7 @@ color_return_command()
 python_venv()
 {
   if [ -n "$VIRTUAL_ENV" ]; then
-    basename $VIRTUAL_ENV | sed 's/^/(/; s/$/)/'
+    basename "$VIRTUAL_ENV" | sed 's/^/(/; s/$/)/'
   fi
 }
 git_info()
