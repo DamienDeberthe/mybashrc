@@ -1,4 +1,4 @@
-# my-bashrc
+# mybashrc
 
 This project install 'mybashrc' configuration for current user.
 
